@@ -10,7 +10,7 @@ fs.readdirSync('./commands').forEach(dirs => {
 
   for (const file of commands) {
       const command = require(`./commands/${dirs}/${file}`);
-      console.log(`Loading command ${file}`);
+      console.log(`Chargement de la commande ${file}`);
       client.commands.set(command.name.toLowerCase(), command);
   };
 });
