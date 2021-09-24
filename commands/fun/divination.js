@@ -14,11 +14,15 @@ module.exports = {
     ],
     execute:(client, interaction)=>{
         const phrases =[
-            "Oui",
-            "Bien sûr",
-            "Tout à fait",
-            "Tutafeh",
-            
+            "Oui.",
+            "Bien sûr.",
+            "Tout à fait.",
+            "Tutafeh.",
+            "Absolument !",
+            "Evidemment !",
+            "Tu en doutes ?",
+            "Oui, mais attention, ça pourrait changer.",
+
             "Ca se pourrait",
             "Peut être",
             "C'est pas impossible",
@@ -26,10 +30,16 @@ module.exports = {
             "Mais j'en sais rien moi !",
             "Je t'en pose des questions ?",
             "C'est pas toi qui décide !",
+            "Y a vraiment des gens qui se demandent ça ?",
+            "La réponse devrait te parraitre évidente.",
 
-            "Lol nope",
-            "Non",
-            "Et la marmotte, elle met le chocolat dans le papier alu",
+            "Non, mais ça viendra peut-être.",
+            "Pas vraiment...",
+            "Lol nope.",
+            "Non.",
+            "Absolument ||pas !||",
+            "Pas du tout !",
+            "Et la marmotte, elle met le chocolat dans le papier alu.",
             "Ha ha ha... Non !"
         ];
         const reponse = phrases[Math.floor(Math.random()*phrases.length)];
