@@ -8,7 +8,7 @@ module.exports = {
             name:'question',
             description:'La question à laquelle le bot va répondre',
             type:3,//type 3 = STRING
-            required:false,
+            required:true,
         },
     ],
     execute:(client, interaction)=>{
