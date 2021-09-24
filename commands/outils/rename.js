@@ -46,7 +46,7 @@ module.exports = {
         if (!interaction.member.manageable) return await interaction.reply({ content: `Je ne dispose pas des droits suffisants pour vous renommer, si celà ne semble pas normal, contactez un administrateur pour vérifier vos permissions et les miennes`, ephemeral: true });
 
         // Vérification que la longueur du pseudo est valide
-        if (newNick.length>32) return await interaction.reply({ content: `Un pseudo Discord ne peut être plus long que 32 caractères`, ephemeral: true });
+        if (newNick && newNick.length>32) return await interaction.reply({ content: `Un pseudo Discord ne peut être plus long que 32 caractères`, ephemeral: true });
 
         // Vérification que le nouveau pseudo est différent de l'ancien
         if (interaction.member.nickname === newNick) return await interaction.reply({ content: `Mais, c'est le même pseudo qu'avant ça...`, ephemeral: true });
