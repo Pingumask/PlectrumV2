@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'divination',
     category: 'fun',
@@ -33,7 +34,8 @@ module.exports = {
         ];
         const reponse = phrases[Math.floor(Math.random()*phrases.length)];
         const question = interaction.options.getString('question');
-        if (question) interaction.reply(`${interaction.member} me demande \`${question}\` \nMa réponse est \`${reponse}\``);
+        let message = new MessageEmbed().setDescription(`**Question:** ${question}\n**Réponse:** ${reponse}`);
+        if (question) interaction.reply({embeds:[message]});
         else interaction.reply(reponse);
     },
 };
