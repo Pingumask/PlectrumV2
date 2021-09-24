@@ -43,7 +43,13 @@ module.exports = {
         if (!renameChannel) return await interaction.reply({ content: `Erreur dans la configuration du channel de reception des demandes de rename`, ephemeral: true });
 
         // Vérification des droits du bot
-        if (!interaction.member.manageable) return interaction.reply({ content: `Je ne dispose pas des droits suffisants pour vous renommer, si celà ne semble pas normal, contactez un administrateur pour vérifier vos permissions et les miennes`, ephemeral: true });
+        if (!interaction.member.manageable) return await interaction.reply({ content: `Je ne dispose pas des droits suffisants pour vous renommer, si celà ne semble pas normal, contactez un administrateur pour vérifier vos permissions et les miennes`, ephemeral: true });
+
+        // Vérification que la longueur du pseudo est valide
+        if (newNick.length>32) return await interaction.reply({ content: `Un pseudo Discord ne peut être plus long que 32 caractères`, ephemeral: true });
+
+        // Vérification que le nouveau pseudo est différent de l'ancien
+        if (interaction.member.nickname === newNick) return await interaction.reply({ content: `Mais, c'est le même pseudo qu'avant ça...`, ephemeral: true });
 
         // Création de la réponse à l'utilisateur
         const replyEmbed = new MessageEmbed().setTitle(`Demande de changement de pseudo`).setDescription(`${emotes.pending} En attente d'approbation`);
@@ -52,7 +58,7 @@ module.exports = {
 
         // Création du message aux modérateurs
         if(newNick) modMessage.setTitle(`${interaction.member.displayName} :arrow_forward: ${newNick}`);
-        else modMessage.setTitle(`${interaction.member.displayName} demande la réinitialisation de son pseudo`);
+        else modMessage.setTitle(`${interaction.member.displayName} demande la réinitialisation de son pseudo :arrow_forward: ${interaction.member.user.tag}`);
         const pendingRename = await renameChannel.send({embeds:[modMessage]});
         pendingRename.react(emotes.accept);
         pendingRename.react(emotes.refuse);   
