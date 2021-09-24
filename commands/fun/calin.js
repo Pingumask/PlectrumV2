@@ -34,12 +34,20 @@ module.exports = {
             'https://c.tenor.com/jX1-mxefJ54AAAAC/cat-hug.gif'
         ]
         const picked = images[Math.floor(Math.random() * images.length)];
-        const calin = interaction.options.getString('destinataire') ?? '... Ha ! ... Bah, il a oublié de dire à qui';
+        const calin = interaction.options.getString('destinataire');
+        const resultat = `${interaction.member} fait un calin à ${calin} <3.`;
         let messageEmbed = new MessageEmbed()
-            .setDescription(`${interaction.member} fait un calin à ${calin} <3.`)
+            .setDescription(resultat)
             .setImage(picked)
-        await interaction.reply({embeds:[messageEmbed]});
+    
+        //On envoit d'abbord le calin sous forme d'un message normal pour déclencher les pings
+        await interaction.reply({content:resultat});
+        
+        //Puis on le remplace par un embed avec l'image
+        await interaction.editReply({content:' ',embeds:[messageEmbed]});
+
+        //Puis l'image est supprimée de l'embed
         messageEmbed.setImage(null);
-        setTimeout(()=>interaction.editReply({embeds:[messageEmbed]}),25000);
+        setTimeout(()=>interaction.editReply({content:' ',embeds:[messageEmbed]}),25000);
     },
 };
