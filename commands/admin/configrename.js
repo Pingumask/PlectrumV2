@@ -1,4 +1,4 @@
-const { Permissions, GuildChannel } = require('discord.js');
+const { Permissions } = require('discord.js');
 const fs=require('fs');
 const renamechannels = require('../../save/renamechannels.json');
 

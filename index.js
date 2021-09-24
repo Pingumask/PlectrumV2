@@ -1,7 +1,10 @@
 const { Client, Intents, Collection } = require('discord.js');
 require('dotenv').config();
 const fs = require('fs');
-const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
+const client = new Client({ 
+  intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MESSAGE_REACTIONS],
+  partials:['MESSAGE','CHANNEL','REACTION'],
+});
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 client.commands = new Collection();
 
