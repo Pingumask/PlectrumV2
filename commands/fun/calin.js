@@ -19,8 +19,7 @@ module.exports = {
         if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
         if(cooldown[interaction.guild.id][interaction.member.id]){
             let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
-            await interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} pour ton prochain calin`, ephemeral: true });
-            return;
+            return await interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} pour ton prochain calin`, ephemeral: true });
         }
         cooldown[interaction.guild.id][interaction.member.id] = Date.now() + TIMER;
         setTimeout(()=>{
