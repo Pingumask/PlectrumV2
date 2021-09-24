@@ -1,3 +1,4 @@
+const { MessageEmbed } = require('discord.js');
 module.exports = {
     name: 'carte',
     category: 'fun',
@@ -8,6 +9,7 @@ module.exports = {
         const symboles =["♠","♥","♣","♦"];
         const valeur = valeurs[Math.floor(Math.random()*valeurs.length)];
         const symbole = symboles[Math.floor(Math.random()*symboles.length)];
-        interaction.reply(`${interaction.member} tire la carte \`${symbole}${valeur}\``);
+        let message = new MessageEmbed().setTitle(`${symbole}${valeur}`);
+        interaction.reply({embeds:[message]});
     },
 };
