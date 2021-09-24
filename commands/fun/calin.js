@@ -11,7 +11,7 @@ module.exports = {
             name:'destinataire',
             description:'A qui faire le calin',
             type:3,//type 3 = STRING
-            required:false,
+            required:true,
         },
     ],
     execute: async (client, interaction)=>{
