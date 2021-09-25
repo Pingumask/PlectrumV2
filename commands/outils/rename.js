@@ -75,7 +75,7 @@ module.exports = {
                 if (interaction.member.manageable){ // Demande acceptée
                     modMessage.setFooter(`${emotes.accept} Accepté par ${user.username}`);
                     interaction.member.setNickname(newNick);
-                    replyEmbed.setDescription(`${emotes.accept} Accceptée`);
+                    replyEmbed.setDescription(`${emotes.accept} Acceptée`);
                     interaction.editReply({embeds:[replyEmbed]});
                 }else{ // Demande acceptée alors que le bot n'a pas les droits suffisants (si les droits de l'utilisateur ou du bot ont changé depuis la demande)
                     modMessage.setFooter(`${emotes.error} Accepté par ${user.username}, mais je n'ai pas les droits pour renommer cet utilisateur`);
