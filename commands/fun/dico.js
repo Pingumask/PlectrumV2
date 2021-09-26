@@ -14,7 +14,8 @@ module.exports = {
         },
     ],
     execute: async (client, interaction)=>{
-        const word = interaction.options.getString('mot');        
+        const word = interaction.options.getString('mot');   
+        if (word.length>300) return await interaction.reply({ content: `C'est pas un vrai mot ça, j'ai même pas besoin d'ouvrir un dico pour le savoir !`, ephemeral: true });
         wd.getDef(word, "fr", {exact:false}, function(definition) {
             let response;
             if (!definition.category){
