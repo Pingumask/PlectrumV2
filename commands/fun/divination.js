@@ -12,7 +12,7 @@ module.exports = {
             required:true,
         },
     ],
-    execute:(client, interaction)=>{
+    execute: async (client, interaction)=>{
         const phrases =[
             "Oui.",
             "Bien sûr.",
@@ -44,6 +44,7 @@ module.exports = {
         ];
         const reponse = phrases[Math.floor(Math.random()*phrases.length)];
         const question = interaction.options.getString('question');
+        if (question.length>1200) return await interaction.reply({ content: `J'ai pas compris la question`, ephemeral: true });
         let message = new MessageEmbed().setDescription(`**Question:** ${question}\n**Réponse:** ${reponse}`);
         if (question) interaction.reply({embeds:[message]});
         else interaction.reply(reponse);
