@@ -35,6 +35,9 @@ module.exports = {
         ]
         const picked = images[Math.floor(Math.random() * images.length)];
         const calin = interaction.options.getString('destinataire');
+
+        if (calin.length>300) return await interaction.reply({ content: `Ca fait beaucoup là non ?`, ephemeral: true });
+
         const resultat = `${interaction.member} fait un calin à ${calin} <3.`;
         let messageEmbed = new MessageEmbed()
             .setDescription(resultat)
