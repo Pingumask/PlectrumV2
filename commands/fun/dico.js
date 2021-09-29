@@ -20,16 +20,14 @@ module.exports = {
             let response;
             if (!definition.category){
                 response = `Je n'ai pas trouvé la définition de ${definition.word}`;
+                response = new MessageEmbed()
+                            .setDescription(`Je n'ai pas trouvé la définition de ${definition.word}`);  
             } else{
-                response = {
-                    embeds:[
-                        new MessageEmbed()
-                            .setTitle(`${definition.word[0].toUpperCase() + definition.word.substring(1)} : ${definition.category}`)
-                            .setDescription(definition.definition)
-                    ]
-                };  
+                response = new MessageEmbed()
+                            .setTitle(`${(word.toLowerCase()!=definition.word.toLowerCase())?word+' -> ':''}${definition.word[0].toUpperCase() + definition.word.substring(1)} : ${definition.category}`)
+                            .setDescription(definition.definition);  
             }
-            interaction.reply(response);
+            interaction.reply({embeds:[response]});
         });             
     }
 };
