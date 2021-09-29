@@ -15,8 +15,8 @@ module.exports = {
     ],
     execute: async (client, interaction)=>{
         const rpgDices = interaction.options.getString('dés').split('d');
-        const dices = rpgDices[0] ?? -1;
-        const sides = rpgDices[1] ?? -1;
+        const dices = parseInt(rpgDices[0]) ?? -1;
+        const sides = parseInt(rpgDices[1]) ?? -1;
         if(isNaN(dices) || isNaN(sides) || dices<1 || sides<1){
             return await interaction.reply({ 
                 content: `L'envoi de dés soit se faire au format jeu de rôles : [nombre de dés]d[nombre de faces]
@@ -28,6 +28,13 @@ module.exports = {
         if(dices>10000){
             return await interaction.reply({ 
                 content: `Impossible de lancer plus de 10 000 dés à la fois.`, 
+                ephemeral: true ,
+            });
+        }
+
+        if(sides>1000000000000000000000000){
+            return await interaction.reply({ 
+                content: `Impossible de lancer un dé à plus d'un quadrillion de faces.`, 
                 ephemeral: true ,
             });
         }
