@@ -3,7 +3,7 @@ module.exports = {
     category: 'fun',
     description: 'Tire à pile ou face',
     utilisation: '{prefix}pileface',
-    execute:(client, interaction)=>{
+    execute: async (client, interaction)=>{
         const phrases =[
             "Pile",
             "Face",
