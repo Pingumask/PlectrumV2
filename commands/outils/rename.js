@@ -52,9 +52,11 @@ module.exports = {
         if (interaction.member.nickname === newNick) return await interaction.reply({ content: `Mais, c'est le même pseudo qu'avant ça...`, ephemeral: true });
 
         // Création de la réponse à l'utilisateur
-        const replyEmbed = new MessageEmbed().setTitle(`Demande de changement de pseudo`).setDescription(`${emotes.pending} En attente d'approbation`);
-        await interaction.reply({embeds:[replyEmbed]});
-        let modMessage = new MessageEmbed().setDescription(`Demande de rename de ${interaction.member}`);
+        const replyEmbed = newNick ? 
+            new MessageEmbed().setDescription(`Votre demande de changement de pseudo a été transmise à l'équipe de modération`)
+            :new MessageEmbed().setDescription(`Votre demande de réinitialisation de pseudo a été transmise à l'équipe de modération`);
+        await interaction.reply({embeds:[replyEmbed], ephemeral:true});
+        let modMessage = new MessageEmbed().setDescription(`Demande de rename de ${interaction.member}`).setFooter(`#${interaction.channel.name} le ${new Date().toLocaleDateString()} à ${new Date().toLocaleTimeString()}`);
 
         // Création du message aux modérateurs
         if(newNick) modMessage.setTitle(`${interaction.member.displayName} :arrow_forward: ${newNick}`);
@@ -67,29 +69,29 @@ module.exports = {
         const reactionFilter = (reaction,user) => {
             return !user.bot && [emotes.accept,emotes.refuse].includes(reaction.emoji.name);
         };
-        const reactionCollector = new ReactionCollector(pendingRename,{'filter':reactionFilter,dispose:true});
+        const reactionCollector = new ReactionCollector(pendingRename,{'filter':reactionFilter, dispose:true});
 
         //Gestion de la décision du modérateur
-        reactionCollector.on('collect',(reaction, user)=>{       
+        reactionCollector.on('collect',(reaction, user)=>{    
+            const now = new Date();
+            const response = new MessageEmbed();   
             if (reaction.emoji.name === emotes.accept){
                 if (interaction.member.manageable){ // Demande acceptée
-                    modMessage.setFooter(`${emotes.accept} Accepté par ${user.username}`);
+                    modMessage.setFooter(`${emotes.accept} Accepté par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`);
                     interaction.member.setNickname(newNick);
-                    replyEmbed.setDescription(`${emotes.accept} Acceptée`);
-                    interaction.editReply({embeds:[replyEmbed]});
+                    response.setDescription(`${emotes.accept} Changement de pseudo de ${interaction.member} accepté par ${user}`);
                 }else{ // Demande acceptée alors que le bot n'a pas les droits suffisants (si les droits de l'utilisateur ou du bot ont changé depuis la demande)
                     modMessage.setFooter(`${emotes.error} Accepté par ${user.username}, mais je n'ai pas les droits pour renommer cet utilisateur`);
-                    replyEmbed.setDescription(`${emotes.error} Erreur`);
-                    interaction.editReply({embeds:[replyEmbed]});
+                    response.setDescription(`${emotes.error} Erreur lors de l'acceptation du pseudo`);
                 }
             } else{ // Demande refusée
-                modMessage.setFooter(`${emotes.refuse} Refusé par ${user.username}`);
-                replyEmbed.setDescription(`${emotes.refuse} Refusée`);
-                interaction.editReply({embeds:[replyEmbed]});
+                modMessage.setFooter(`${emotes.refuse} Refusé par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`);
+                response.setDescription(`${emotes.refuse} Changement de pseudo de ${interaction.member} refusé par l'équipe de modération`);
             }
+            interaction.channel.send({embeds:[response]});
             pendingRename.edit({embeds:[modMessage]});
             pendingRename.reactions.removeAll();
             reactionCollector.stop();
-        });        
+        });
     },
 };
