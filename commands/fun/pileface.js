@@ -9,6 +9,6 @@ module.exports = {
             "Face",
         ];
         const reponse = phrases[Math.floor(Math.random()*phrases.length)];
-        interaction.reply(`${interaction.member} lance une piece \`${reponse}\``);
+        interaction.reply(`${reponse}`);
     },
 };

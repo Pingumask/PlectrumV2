@@ -4,6 +4,7 @@ const cooldown = {};
 module.exports = {
     name: 'calin',
     category: 'fun',
+    channel:'guild',
     description: 'Fait un calin aux gens',
     utilisation: '{prefix}calin [destinataire]',
     options:[
@@ -12,10 +13,12 @@ module.exports = {
             description:'A qui faire le calin',
             type:3,//type 3 = STRING
             required:true,
+            
         },
     ],
     execute: async (client, interaction)=>{
         const TIMER = 300000;
+        if (interaction.guild==undefined) return interaction.reply("Cette commande n'est utilisable que dans un serveur");
         if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
         if(cooldown[interaction.guild.id][interaction.member.id]){
             let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);

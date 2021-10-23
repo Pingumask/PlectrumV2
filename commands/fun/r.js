@@ -61,7 +61,7 @@ module.exports = {
         }
 
         let response = new MessageEmbed()
-            .setTitle(`${interaction.member.displayName} lance ${dices} dé${dices>1?'s':''} à ${sides} faces`)
+            .setTitle(`Lance ${dices} dé${dices>1?'s':''} à ${sides} faces :`)
             .setDescription(description)
             .setFooter(footer);
         
