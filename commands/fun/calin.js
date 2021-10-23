@@ -4,7 +4,6 @@ const cooldown = {};
 module.exports = {
     name: 'calin',
     category: 'fun',
-    channel:'guild',
     description: 'Fait un calin aux gens',
     utilisation: '{prefix}calin [destinataire]',
     options:[
@@ -12,21 +11,22 @@ module.exports = {
             name:'destinataire',
             description:'A qui faire le calin',
             type:3,//type 3 = STRING
-            required:true,
-            
+            required:true,            
         },
     ],
     execute: async (client, interaction)=>{
-        const TIMER = 300000;
-        if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
-        if(cooldown[interaction.guild.id][interaction.member.id]){
-            let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
-            return await interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} pour ton prochain calin`, ephemeral: true });
+        if (interaction.guild){
+            const TIMER = 300000;
+            if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
+            if(cooldown[interaction.guild.id][interaction.member.id]){
+                let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
+                return await interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} pour ton prochain calin`, ephemeral: true });
+            }
+            cooldown[interaction.guild.id][interaction.member.id] = Date.now() + TIMER;
+            setTimeout(()=>{
+                delete cooldown[interaction.guild.id][interaction.member.id];
+            }, TIMER);
         }
-        cooldown[interaction.guild.id][interaction.member.id] = Date.now() + TIMER;
-        setTimeout(()=>{
-            delete cooldown[interaction.guild.id][interaction.member.id];
-        }, TIMER);
 
         const images =[
             'https://c.tenor.com/DxMIq9-tS5YAAAAC/milk-and-mocha-bear-couple.gif',
@@ -40,7 +40,7 @@ module.exports = {
 
         if (calin.length>300) return await interaction.reply({ content: `Ca fait beaucoup là non ?`, ephemeral: true });
 
-        const resultat = `${interaction.member} fait un calin à ${calin} <3.`;
+        const resultat = `${interaction.user} fait un calin à ${calin} <3.`;
         let messageEmbed = new MessageEmbed()
             .setDescription(resultat)
             .setImage(picked)
