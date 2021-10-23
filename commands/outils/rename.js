@@ -5,6 +5,7 @@ const renamechannels = require('../../save/renamechannels.json');
 module.exports = {
     name: 'rename',
     category: 'outils',
+    channel:'guild',
     description: 'Effectue une demande de changement de pseudo auprès de la modération',
     utilisation: '{prefix}rename [nouveau pseudo]',
     options:[
