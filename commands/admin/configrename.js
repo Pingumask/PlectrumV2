@@ -5,6 +5,7 @@ const renamechannels = require('../../save/renamechannels.json');
 module.exports = {
     name: 'configrename',
     category: 'admin',
+    channel:'guild',
     description: 'Configure le salon dans lequel doivent apparaitre les demandes de rename',
     utilisation: '{prefix}configrename [channel]',
     options:[
