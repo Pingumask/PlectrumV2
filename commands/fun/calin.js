@@ -18,7 +18,6 @@ module.exports = {
     ],
     execute: async (client, interaction)=>{
         const TIMER = 300000;
-        if (interaction.guild==undefined) return interaction.reply("Cette commande n'est utilisable que dans un serveur");
         if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
         if(cooldown[interaction.guild.id][interaction.member.id]){
             let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
