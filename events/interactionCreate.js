@@ -14,7 +14,7 @@ module.exports = async (client, interaction) => {
         try{
             await cmd.execute(client, interaction);
         } catch(e){
-            console.error(`Erreur dans l'execution de la commande ${cmd} : ${e}`);
+            console.error(`Erreur dans l'execution de la commande ${cmd.name} : ${e}`);
         }
         return;
     }
