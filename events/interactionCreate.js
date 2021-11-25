@@ -3,7 +3,7 @@ module.exports = async (client, interaction) => {
     const command = interaction.commandName;
     let args = '';    
     interaction.options._hoistedOptions.forEach(option => {
-        args += option.value;
+        args += ` ${option.value}`;
     });
     const cmd = client.commands.get(command) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
     console.log(`(${now.toLocaleDateString()} ${now.toLocaleTimeString()}) ${interaction?.guild?.name ?? 'MP'}, #${interaction?.channel?.name ?? interaction?.channel?.thread?.name ?? 'MP'}, @${interaction?.member?.displayName ?? interaction?.user?.tag ?? 'unknown user'} : /${command} ${args}` );   
