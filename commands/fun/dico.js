@@ -19,7 +19,6 @@ module.exports = {
         wd.getDef(word, "fr", {exact:false}, function(definition) {
             let response;
             if (!definition.category){
-                response = `Je n'ai pas trouvé la définition de ${definition.word}`;
                 response = new MessageEmbed()
                             .setDescription(`Je n'ai pas trouvé la définition de ${definition.word}`);  
             } else{

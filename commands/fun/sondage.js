@@ -185,8 +185,7 @@ module.exports = {
                     try{
                         await poll.react(`\\${emotes[num]}`);
                         messageEmbed.description += `\n${emotes[num]} ${options[num]}`;
-                        }
-                        catch(error){
+                    } catch(e){
                         console.warn(`Emote ${emotes[num]} inutilisable`);
                         await poll.react(defaultEmotes[num]);
                         messageEmbed.description += `\n${defaultEmotes[num]} ${options[num]}`;

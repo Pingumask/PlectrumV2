@@ -48,6 +48,8 @@ module.exports = {
         }
 
         let detail = `[${rolls.join('] [')}]`;
+        let description;
+        let footer;
         total = `Total : ${total}`;
         if(dices<=5){
             description = detail;
