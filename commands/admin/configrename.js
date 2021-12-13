@@ -18,13 +18,13 @@ module.exports = {
     ],
     execute: async (client, interaction)=>{
         if (!interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)){
-            return await interaction.reply({ 
+            return interaction.reply({ 
                 content: `Cette commande est reservée aux administrateurs du serveur !`, 
                 ephemeral: true ,
             });
         }
         let channel = interaction.options.getString('channel').startsWith('<#') ? interaction.options.getString('channel') : 'undefined';
-        if (channel.length>300) return await interaction.reply({ content: `C'est pas un vrai id de channel ça !`, ephemeral: true });
+        if (channel.length>300) return interaction.reply({ content: `C'est pas un vrai id de channel ça !`, ephemeral: true });
 
         renamechannels[interaction.guild.id] = {
             'guild':interaction.guild.name,

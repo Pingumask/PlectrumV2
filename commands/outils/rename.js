@@ -31,8 +31,8 @@ module.exports = {
             || !renamechannels[interaction.guild.id].channel
             || renamechannels[interaction.guild.id].channel == 'undefined'
         ){ 
-            if (interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return await interaction.reply({ content: `Pour activer les demandes de rename sur ce serveur, utilisez \`/configrename #channel-de-reception-des-demandes\``, ephemeral: true });
-            return await interaction.reply({ content: `Les demandes de rename ne sont pas actives sur ce serveur`, ephemeral: true });
+            if (interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `Pour activer les demandes de rename sur ce serveur, utilisez \`/configrename #channel-de-reception-des-demandes\``, ephemeral: true });
+            return interaction.reply({ content: `Les demandes de rename ne sont pas actives sur ce serveur`, ephemeral: true });
         }
 
         // Récupération des parametres
@@ -41,16 +41,16 @@ module.exports = {
         const renameChannel =  client.channels.cache.get(renamechannels[interaction.guild.id].channel.replace(chanIdRegex, '$1'));
 
         //Gestion de l'erreur si le channel est mal configuré sur le serveur (absent ou non visible par le bot)
-        if (!renameChannel) return await interaction.reply({ content: `Erreur dans la configuration du channel de reception des demandes de rename`, ephemeral: true });
+        if (!renameChannel) return interaction.reply({ content: `Erreur dans la configuration du channel de reception des demandes de rename`, ephemeral: true });
 
         // Vérification des droits du bot
-        if (!interaction.member.manageable) return await interaction.reply({ content: `Je ne dispose pas des droits suffisants pour vous renommer, si celà ne semble pas normal, contactez un administrateur pour vérifier vos permissions et les miennes`, ephemeral: true });
+        if (!interaction.member.manageable) return interaction.reply({ content: `Je ne dispose pas des droits suffisants pour vous renommer, si celà ne semble pas normal, contactez un administrateur pour vérifier vos permissions et les miennes`, ephemeral: true });
 
         // Vérification que la longueur du pseudo est valide
-        if (newNick && newNick.length>32) return await interaction.reply({ content: `Un pseudo Discord ne peut être plus long que 32 caractères`, ephemeral: true });
+        if (newNick && newNick.length>32) return interaction.reply({ content: `Un pseudo Discord ne peut être plus long que 32 caractères`, ephemeral: true });
 
         // Vérification que le nouveau pseudo est différent de l'ancien
-        if (interaction.member.nickname === newNick) return await interaction.reply({ content: `Mais, c'est le même pseudo qu'avant ça...`, ephemeral: true });
+        if (interaction.member.nickname === newNick) return interaction.reply({ content: `Mais, c'est le même pseudo qu'avant ça...`, ephemeral: true });
 
         // Création de la réponse à l'utilisateur
         const replyEmbed = newNick ? 

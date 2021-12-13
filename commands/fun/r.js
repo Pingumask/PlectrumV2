@@ -18,7 +18,7 @@ module.exports = {
         const dices = parseInt(rpgDices[0]) ?? -1;
         const sides = parseInt(rpgDices[1]) ?? -1;
         if(isNaN(dices) || isNaN(sides) || dices<1 || sides<1){
-            return await interaction.reply({ 
+            return interaction.reply({ 
                 content: `L'envoi de dés soit se faire au format jeu de rôles : [nombre de dés]d[nombre de faces]
                           \nexample: \`/r 3d6\` pour lancer trois dés à six faces.`, 
                 ephemeral: true ,
@@ -26,14 +26,14 @@ module.exports = {
         }
 
         if(dices>10000){
-            return await interaction.reply({ 
+            return interaction.reply({ 
                 content: `Impossible de lancer plus de 10 000 dés à la fois.`, 
                 ephemeral: true ,
             });
         }
 
         if(sides>1000000000000000000000000){
-            return await interaction.reply({ 
+            return interaction.reply({ 
                 content: `Impossible de lancer un dé à plus d'un quadrillion de faces.`, 
                 ephemeral: true ,
             });

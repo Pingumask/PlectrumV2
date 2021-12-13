@@ -117,7 +117,7 @@ module.exports = {
             if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
             if(cooldown[interaction.guild.id][interaction.member.id]){
                 let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
-                return await interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} avant de lancer un nouveau sondage`, ephemeral: true });
+                return interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} avant de lancer un nouveau sondage`, ephemeral: true });
             }
             cooldown[interaction.guild.id][interaction.member.id] = Date.now() + TIMER;
             setTimeout(()=>{
@@ -162,9 +162,9 @@ module.exports = {
         }
 
         //Sécurisation de la longueur des parametres
-        if (question.length > 300) return await interaction.reply({ content: `La question est trop longue`, ephemeral: true });
+        if (question.length > 300) return interaction.reply({ content: `La question est trop longue`, ephemeral: true });
         for(num=1;num<=8;num++){
-            if(options[num] !== null && options[num].length>200) return await interaction.reply({ content: `La réponse ${num} est trop longue`, ephemeral: true });
+            if(options[num] !== null && options[num].length>200) return interaction.reply({ content: `La réponse ${num} est trop longue`, ephemeral: true });
         }
 
         //Envoi de la question

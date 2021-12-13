@@ -20,7 +20,7 @@ module.exports = {
             if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
             if(cooldown[interaction.guild.id][interaction.member.id]){
                 let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
-                return await interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} pour ton prochain calin`, ephemeral: true });
+                return interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} pour ton prochain calin`, ephemeral: true });
             }
             cooldown[interaction.guild.id][interaction.member.id] = Date.now() + TIMER;
             setTimeout(()=>{
@@ -38,7 +38,7 @@ module.exports = {
         const picked = images[Math.floor(Math.random() * images.length)];
         const calin = interaction.options.getString('destinataire');
 
-        if (calin.length>300) return await interaction.reply({ content: `Ca fait beaucoup là non ?`, ephemeral: true });
+        if (calin.length>300) return interaction.reply({ content: `Ca fait beaucoup là non ?`, ephemeral: true });
 
         const resultat = `${interaction.user} fait un calin à ${calin} <3.`;
         let messageEmbed = new MessageEmbed()
