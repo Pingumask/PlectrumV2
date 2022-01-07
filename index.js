@@ -7,6 +7,7 @@ const client = new Client({
 });
 const DISCORD_TOKEN = process.env.DISCORD_TOKEN;
 client.commands = new Collection();
+client.buttonListeners = new Collection();
 
 fs.readdirSync('./commands').forEach(dirs => {
   const commands = fs.readdirSync(`./commands/${dirs}`).filter(files => files.endsWith('.js'));
@@ -24,5 +25,11 @@ for (const file of events) {
   const event = require(`./events/${file}`);
   client.on(file.split(".")[0], event.bind(null, client));
 };
+
+fs.readdirSync('./buttonListeners').forEach(file => {
+  console.log(`Chargement du bouttonListener ${file}`);
+  const buttonListener = require(`./buttonListeners/${file}`);
+  client.buttonListeners.set(buttonListener.name, buttonListener);
+});
 
 client.login(DISCORD_TOKEN);

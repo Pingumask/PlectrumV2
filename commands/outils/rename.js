@@ -17,14 +17,6 @@ module.exports = {
         },
     ],
     execute: async (client, interaction)=>{
-        //Déclaration des émotes utilisées dans la comande
-        const emotes={
-            accept:'✅',
-            refuse:'🚫',
-            error:'⚠️',
-            pending:'🕐',
-        }
-
         // Gestion des erreurs si la commande n'est pas configurée sur le serveur
         if ( 
             !renamechannels[interaction.guild.id]
@@ -36,7 +28,8 @@ module.exports = {
         }
 
         // Récupération des parametres
-        const newNick = interaction.options.getString('pseudo');
+        const now = new Date();
+        const newNick = interaction.options.getString('pseudo') ?? '[Réinitialisation]';
         const chanIdRegex= /<#(.+)>/;
         const renameChannel =  client.channels.cache.get(renamechannels[interaction.guild.id].channel.replace(chanIdRegex, '$1'));
 
@@ -53,46 +46,43 @@ module.exports = {
         if (interaction.member.nickname === newNick) return interaction.reply({ content: `Mais, c'est le même pseudo qu'avant ça...`, ephemeral: true });
 
         // Création de la réponse à l'utilisateur
-        const replyEmbed = newNick ? 
-            new MessageEmbed().setDescription(`Votre demande de changement de pseudo a été transmise à l'équipe de modération`)
-            :new MessageEmbed().setDescription(`Votre demande de réinitialisation de pseudo a été transmise à l'équipe de modération`);
+        const replyEmbed = newNick  ? new MessageEmbed().setDescription(`Votre demande de changement de pseudo a été transmise à l'équipe de modération`)
+                                    :new MessageEmbed().setDescription(`Votre demande de réinitialisation de pseudo a été transmise à l'équipe de modération`);
         await interaction.reply({embeds:[replyEmbed], ephemeral:true});
-        let modMessage = new MessageEmbed().setDescription(`Demande de rename de ${interaction.member}`).setFooter({text:`#${interaction.channel.name} le ${new Date().toLocaleDateString()} à ${new Date().toLocaleTimeString()}`});
+
 
         // Création du message aux modérateurs
-        if(newNick) modMessage.setTitle(`${interaction.member.displayName} :arrow_forward: ${newNick}`);
-        else modMessage.setTitle(`${interaction.member.displayName} demande la réinitialisation de son pseudo :arrow_forward: ${interaction.member.user.tag}`);
-        const pendingRename = await renameChannel.send({embeds:[modMessage]});
-        pendingRename.react(emotes.accept);
-        pendingRename.react(emotes.refuse);   
+        let modMessage = new MessageEmbed()
+                            .setTitle(`Demande de rename`)
+                            .addField('Demandeur',`<@${interaction.member.id}>`)
+                            .addField('Ancien Pseudo',interaction.member.displayName,true)
+                            .addField('Nouveau Pseudo',newNick,true)                         
+                            .addField('Channel',`<#${interaction.channel.id}>`)
+                            .addField('Date de la demande',`${new Date().toLocaleDateString()} à ${new Date().toLocaleTimeString()}`,true)
+                            .setFooter({text:`🕐 En attente depuis le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
         
-        // Création du collecteur de réactions
-        const reactionFilter = (reaction,user) => {
-            return !user.bot && [emotes.accept,emotes.refuse].includes(reaction.emoji.name);
-        };
-        const reactionCollector = new ReactionCollector(pendingRename,{'filter':reactionFilter, dispose:true});
-
-        //Gestion de la décision du modérateur
-        reactionCollector.on('collect',(reaction, user)=>{    
-            const now = new Date();
-            const response = new MessageEmbed();   
-            if (reaction.emoji.name === emotes.accept){
-                if (interaction.member.manageable){ // Demande acceptée
-                    modMessage.setFooter({text:`${emotes.accept} Accepté par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
-                    interaction.member.setNickname(newNick);
-                    response.setDescription(`${emotes.accept} Changement de pseudo de ${interaction.member} accepté par ${user}`);
-                }else{ // Demande acceptée alors que le bot n'a pas les droits suffisants (si les droits de l'utilisateur ou du bot ont changé depuis la demande)
-                    modMessage.setFooter({text:`${emotes.error} Accepté par ${user.username}, mais je n'ai pas les droits pour renommer cet utilisateur`});
-                    response.setDescription(`${emotes.error} Erreur lors de l'acceptation du pseudo`);
-                }
-            } else{ // Demande refusée
-                modMessage.setFooter({text:`${emotes.refuse} Refusé par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
-                response.setDescription(`${emotes.refuse} Changement de pseudo de ${interaction.member} refusé par l'équipe de modération`);
+        // Création des bouttons 
+        let components = [
+            {
+                "type": 1,
+                "components": [
+                    {
+                        "type": 2,
+                        "label": "OK",
+                        "style": 1,
+                        "custom_id": "acceptRename"
+                    },
+                    {
+                        "type": 2,
+                        "label": "NOPE",
+                        "style": 4,
+                        "custom_id": "rejectRename"
+                    }
+                ]
             }
-            interaction.channel.send({embeds:[response]});
-            pendingRename.edit({embeds:[modMessage]});
-            pendingRename.reactions.removeAll();
-            reactionCollector.stop();
-        });
+        ];
+
+        // Envoi du message aux modérateurs
+        const pendingRename = await renameChannel.send({embeds:[modMessage],components});
     },
 };
