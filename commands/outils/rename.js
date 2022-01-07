@@ -1,4 +1,4 @@
-const { Permissions, ReactionCollector, MessageEmbed } = require('discord.js');
+const { Permissions, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 const fs=require('fs');
 const renamechannels = require('../../save/renamechannels.json');
 
@@ -60,29 +60,23 @@ module.exports = {
                             .addField('Channel',`<#${interaction.channel.id}>`)
                             .addField('Date de la demande',`${new Date().toLocaleDateString()} à ${new Date().toLocaleTimeString()}`,true)
                             .setFooter({text:`🕐 En attente depuis le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
-        
+        let embeds = [modMessage];
+
         // Création des bouttons 
-        let components = [
-            {
-                "type": 1,
-                "components": [
-                    {
-                        "type": 2,
-                        "label": "OK",
-                        "style": 1,
-                        "custom_id": "acceptRename"
-                    },
-                    {
-                        "type": 2,
-                        "label": "NOPE",
-                        "style": 4,
-                        "custom_id": "rejectRename"
-                    }
-                ]
-            }
-        ];
+        const acceptButton = new MessageButton()
+            .setCustomId('rejectRename')
+            .setLabel('NOPE')
+            .setStyle('DANGER');
+        const rejectButton = new MessageButton()
+            .setCustomId('acceptRename')
+            .setLabel('OK')
+            .setStyle('PRIMARY');
+        let row = new MessageActionRow()
+            .addComponents(acceptButton)
+            .addComponents(rejectButton);
+        let components = [row];
 
         // Envoi du message aux modérateurs
-        const pendingRename = await renameChannel.send({embeds:[modMessage],components});
+        const pendingRename = await renameChannel.send({embeds,components});
     },
 };
