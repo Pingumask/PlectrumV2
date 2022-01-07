@@ -26,7 +26,7 @@ module.exports = {
         })        
         console.log(`Demande de rename de ${oldNick} en ${newNick} acceptée par ${interaction.member.displayName}`);        
         if (requester.manageable){
-            requestChannel.send({embeds:[{description:`Demande de rename de ${requester} acceptée par ${interaction.user}.`}]});
+            requestChannel.send({embeds:[{description:`✅ Demande de rename de ${requester} acceptée par ${interaction.user}.`}]});
             interaction.message.embeds[0].setFooter({text:`✅ Acceptée par ${interaction.member.displayName} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
             newNick === "[Réinitialisation]"    ? requester.setNickname('')
                                                 : requester.setNickname(newNick);

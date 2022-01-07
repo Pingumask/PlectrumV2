@@ -26,7 +26,7 @@ module.exports = {
             }
         })        
         console.log(`Demande de rename de ${oldNick} en ${newNick} refusée par ${interaction.member.displayName}`);
-        requestChannel.send({embeds:[{description:`Demande de rename de ${requester} refusée par l'équipe de modération.`}]});
+        requestChannel.send({embeds:[{description:`🚫 Demande de rename de ${requester} refusée par l'équipe de modération.`}]});
         interaction.message.embeds[0].setFooter({text:`🚫 Rejeté par ${interaction.member.displayName} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
         interaction.message.edit({embeds:interaction.message.embeds,components:[]});
     },
