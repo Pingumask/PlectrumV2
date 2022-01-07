@@ -1,0 +1,28 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "start",
+			"problemMatcher": [],
+			"label": "Bot run",
+			"detail": "npm run start"
+		},
+		{
+			"type": "npm",
+			"script": "registerCommands",
+			"problemMatcher": [],
+			"label": "Register commands",
+			"detail": "node registerCommands.js"
+		},
+		{
+			"type": "shell",
+			"command": "git pull",
+			"label": "pull",
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
+			"problemMatcher": []
+		}
+	]
+}

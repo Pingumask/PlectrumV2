@@ -1,6 +1,6 @@
 {
   "name": "plectrum",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/Pingumask/PlectrumV2.git"
@@ -9,9 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "register-global": "node register-global.js",
-    "register-guild": "node register-guild.js",
-    "unregister-guild": "node unregister-guild.js"
+    "registerCommands": "node registerCommands.js"
   },
   "author": "Pingumask",
   "license": "WTFPL",
