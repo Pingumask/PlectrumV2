@@ -5,7 +5,7 @@
 			"type": "npm",
 			"script": "start",
 			"problemMatcher": [],
-			"label": "Bot run",
+			"label": "Plectrum run",
 			"detail": "npm run start"
 		},
 		{
