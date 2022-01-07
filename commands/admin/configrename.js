@@ -35,6 +35,6 @@ module.exports = {
             if(err) return console.error(err);
         });     
 
-        interaction.reply(`Channel de reception des demandes de rename réglé à : ${channel}`);
+        interaction.reply({content:`Channel de reception des demandes de rename réglé à : ${channel}`, ephemeral:true});
     },
 };

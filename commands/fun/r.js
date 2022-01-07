@@ -65,7 +65,7 @@ module.exports = {
         let response = new MessageEmbed()
             .setTitle(`Lance ${dices} dé${dices>1?'s':''} à ${sides} faces :`)
             .setDescription(description)
-            .setFooter(footer);
+            .setFooter({text:footer});
         
         interaction.reply({embeds:[response]});
     },

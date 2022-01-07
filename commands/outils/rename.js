@@ -57,7 +57,7 @@ module.exports = {
             new MessageEmbed().setDescription(`Votre demande de changement de pseudo a été transmise à l'équipe de modération`)
             :new MessageEmbed().setDescription(`Votre demande de réinitialisation de pseudo a été transmise à l'équipe de modération`);
         await interaction.reply({embeds:[replyEmbed], ephemeral:true});
-        let modMessage = new MessageEmbed().setDescription(`Demande de rename de ${interaction.member}`).setFooter(`#${interaction.channel.name} le ${new Date().toLocaleDateString()} à ${new Date().toLocaleTimeString()}`);
+        let modMessage = new MessageEmbed().setDescription(`Demande de rename de ${interaction.member}`).setFooter({text:`#${interaction.channel.name} le ${new Date().toLocaleDateString()} à ${new Date().toLocaleTimeString()}`});
 
         // Création du message aux modérateurs
         if(newNick) modMessage.setTitle(`${interaction.member.displayName} :arrow_forward: ${newNick}`);
@@ -78,15 +78,15 @@ module.exports = {
             const response = new MessageEmbed();   
             if (reaction.emoji.name === emotes.accept){
                 if (interaction.member.manageable){ // Demande acceptée
-                    modMessage.setFooter(`${emotes.accept} Accepté par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`);
+                    modMessage.setFooter({text:`${emotes.accept} Accepté par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
                     interaction.member.setNickname(newNick);
                     response.setDescription(`${emotes.accept} Changement de pseudo de ${interaction.member} accepté par ${user}`);
                 }else{ // Demande acceptée alors que le bot n'a pas les droits suffisants (si les droits de l'utilisateur ou du bot ont changé depuis la demande)
-                    modMessage.setFooter(`${emotes.error} Accepté par ${user.username}, mais je n'ai pas les droits pour renommer cet utilisateur`);
+                    modMessage.setFooter({text:`${emotes.error} Accepté par ${user.username}, mais je n'ai pas les droits pour renommer cet utilisateur`});
                     response.setDescription(`${emotes.error} Erreur lors de l'acceptation du pseudo`);
                 }
             } else{ // Demande refusée
-                modMessage.setFooter(`${emotes.refuse} Refusé par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`);
+                modMessage.setFooter({text:`${emotes.refuse} Refusé par ${user.username} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
                 response.setDescription(`${emotes.refuse} Changement de pseudo de ${interaction.member} refusé par l'équipe de modération`);
             }
             interaction.channel.send({embeds:[response]});
