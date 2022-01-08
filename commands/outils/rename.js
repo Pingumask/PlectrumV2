@@ -1,6 +1,4 @@
 const { Permissions, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
-const fs=require('fs');
-const renamechannels = require('../../save/renamechannels.json');
 
 module.exports = {
     name: 'rename',
@@ -19,9 +17,9 @@ module.exports = {
     execute: async (client, interaction)=>{
         // Gestion des erreurs si la commande n'est pas configurée sur le serveur
         if ( 
-            !renamechannels[interaction.guild.id]
-            || !renamechannels[interaction.guild.id].channel
-            || renamechannels[interaction.guild.id].channel == 'undefined'
+            !client.guildsData[interaction.guild.id]
+            || !client.guildsData[interaction.guild.id].renameChannel
+            || client.guildsData[interaction.guild.id].renameChannel == 'undefined'
         ){ 
             if (interaction.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) return interaction.reply({ content: `Pour activer les demandes de rename sur ce serveur, utilisez \`/configrename #channel-de-reception-des-demandes\``, ephemeral: true });
             return interaction.reply({ content: `Les demandes de rename ne sont pas actives sur ce serveur`, ephemeral: true });
@@ -30,8 +28,7 @@ module.exports = {
         // Récupération des parametres
         const now = new Date();
         const newNick = interaction.options.getString('pseudo') ?? '[Réinitialisation]';
-        const chanIdRegex= /<#(.+)>/;
-        const renameChannel =  client.channels.cache.get(renamechannels[interaction.guild.id].channel.replace(chanIdRegex, '$1'));
+        const renameChannel =  client.channels.cache.get(client.guildsData[interaction.guild.id].renameChannel);
 
         //Gestion de l'erreur si le channel est mal configuré sur le serveur (absent ou non visible par le bot)
         if (!renameChannel) return interaction.reply({ content: `Erreur dans la configuration du channel de reception des demandes de rename`, ephemeral: true });
@@ -77,6 +74,6 @@ module.exports = {
         let components = [row];
 
         // Envoi du message aux modérateurs
-        const pendingRename = await renameChannel.send({embeds,components});
+        return renameChannel.send({embeds,components});
     },
 };

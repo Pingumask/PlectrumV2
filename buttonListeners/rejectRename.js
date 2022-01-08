@@ -18,7 +18,6 @@ module.exports = {
                 case 'Demandeur':
                     let requesterID = value.substring(2,value.length-1);
                     requester = interaction.guild.members.cache.get(requesterID);
-                    console.log('refus pour ', requester);
                     break;
                 case 'Channel':
                     let channelID = value.substring(2,value.length-1);

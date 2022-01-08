@@ -1,6 +1,5 @@
 const { Permissions } = require('discord.js');
-const fs=require('fs');
-const renamechannels = require('../../save/renamechannels.json');
+const { doc, setDoc } = require('firebase/firestore/lite');
 
 module.exports = {
     name: 'configrename',
@@ -23,17 +22,17 @@ module.exports = {
                 ephemeral: true ,
             });
         }
-        let channel = interaction.options.getString('channel').startsWith('<#') ? interaction.options.getString('channel') : 'undefined';
+        let channel = interaction.options?.getString('channel')?.startsWith('<#') ? interaction.options.getString('channel') : 'undefined';
         if (channel.length>300) return interaction.reply({ content: `C'est pas un vrai id de channel ça !`, ephemeral: true });
 
-        renamechannels[interaction.guild.id] = {
+        client.guildsData[interaction.guild.id]={
             'guild':interaction.guild.name,
-            'channel':channel,
-        }        
+            'renameChannel':channel,
+        }    
 
-        fs.writeFile("./save/renamechannels.json",JSON.stringify(renamechannels,null,4), (err)=>{
-            if(err) return console.error(err);
-        });     
+        //Enregistrer la modif sur firebase 
+        const docRef = doc(client.firestoreDb, `guilddata/${interaction.guild.id}`);
+        await setDoc(docRef,client.guildsData[interaction.guild.id]);        
 
         interaction.reply({content:`Channel de reception des demandes de rename réglé à : ${channel}`, ephemeral:true});
     },

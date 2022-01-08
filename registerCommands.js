@@ -2,7 +2,7 @@ const { REST } = require('@discordjs/rest');
 const { Routes } = require('discord-api-types/v9');
 const {Collection} = require('discord.js');
 const fs = require('fs');
-require('dotenv').config();
+require('dotenv-json-complex')();
 const { CLIENT_ID, BETA_GUILD_ID, DISCORD_TOKEN } = process.env;
 const commands = new Collection();
 const betaCommands = new Collection();
