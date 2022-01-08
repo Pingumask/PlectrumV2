@@ -22,8 +22,9 @@ module.exports = {
                 ephemeral: true ,
             });
         }
-        let channel = interaction.options?.getString('channel')?.startsWith('<#') ? interaction.options.getString('channel') : 'undefined';
+        let channel = await interaction.options?.getString('channel')?.startsWith('<#') ? interaction.options.getString('channel') : 'undefined';// TODO: remplacer par un vrai test d'existance du channel
         if (channel.length>300) return interaction.reply({ content: `C'est pas un vrai id de channel ça !`, ephemeral: true });
+        channel = channel.substring(2,channel.length-1);
 
         client.guildsData[interaction.guild.id]={
             'guild':interaction.guild.name,

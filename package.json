@@ -9,6 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
+    "postdeploy": "node registerCommands.js",
     "registerCommands": "node registerCommands.js"
   },
   "author": "Pingumask",
@@ -21,5 +22,9 @@
     "firebase": "^9.6.2",
     "fs": "^0.0.1-security",
     "word-definition": "^2.1.6"
+  },
+  "engines": {
+    "npm": ">=8.3.0",
+    "node": ">=17.3.0"
   }
 }
