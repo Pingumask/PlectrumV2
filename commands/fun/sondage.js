@@ -117,7 +117,7 @@ module.exports = {
             if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
             if(cooldown[interaction.guild.id][interaction.member.id]){
                 let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
-                return interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString()} avant de lancer un nouveau sondage`, ephemeral: true });
+                return interaction.reply({ content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString('fr-FR')} avant de lancer un nouveau sondage`, ephemeral: true });
             }
             cooldown[interaction.guild.id][interaction.member.id] = Date.now() + TIMER;
             setTimeout(()=>{

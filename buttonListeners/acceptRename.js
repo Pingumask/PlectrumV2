@@ -24,10 +24,10 @@ module.exports = {
                     requestChannel = interaction.guild.channels.cache.get(channelID);
             }
         })        
-        console.log(`Demande de rename de ${oldNick} en ${newNick} acceptée par ${interaction.member.displayName}`);        
+        console.log(`(${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}) [Rename] ${oldNick} ▶️ ${newNick} ✅ accepté par ${interaction.member.displayName}`);        
         if (requester.manageable){
             requestChannel.send({embeds:[{description:`✅ Demande de rename de ${requester} acceptée par ${interaction.user}.`}]});
-            interaction.message.embeds[0].setFooter({text:`✅ Acceptée par ${interaction.member.displayName} le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
+            interaction.message.embeds[0].setFooter({text:`✅ Acceptée par ${interaction.member.displayName} le ${now.toLocaleDateString('fr-FR')} à ${now.toLocaleTimeString('fr-FR')}`});
             newNick === "[Réinitialisation]"    ? requester.setNickname('')
                                                 : requester.setNickname(newNick);
         } else {

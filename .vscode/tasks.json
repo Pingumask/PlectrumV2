@@ -22,7 +22,18 @@
 			"runOptions": {
 				"runOn": "folderOpen"
 			},
-			"problemMatcher": []
+			"presentation": {
+				"reveal": "silent",
+				"clear": true
+			}
+		},
+		{
+			"type":"shell",
+			"command":"heroku logs -a plectrum-v2 -t",
+			"label": "Heroku logs",
+			"runOptions": {
+				"runOn": "folderOpen"
+			},
 		}
 	]
 }

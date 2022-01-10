@@ -55,8 +55,7 @@ module.exports = {
                             .addField('Ancien Pseudo',interaction.member.displayName,true)
                             .addField('Nouveau Pseudo',newNick,true)                         
                             .addField('Channel',`<#${interaction.channel.id}>`)
-                            .addField('Date de la demande',`${new Date().toLocaleDateString()} à ${new Date().toLocaleTimeString()}`,true)
-                            .setFooter({text:`🕐 En attente depuis le ${now.toLocaleDateString()} à ${now.toLocaleTimeString()}`});
+                            .setFooter({text:`🕐 En attente depuis le ${now.toLocaleDateString('fr-FR')} à ${now.toLocaleTimeString('fr-FR')}`});
         let embeds = [modMessage];
 
         // Création des bouttons 
