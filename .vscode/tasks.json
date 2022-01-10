@@ -12,8 +12,14 @@
 			"type": "npm",
 			"script": "registerCommands",
 			"problemMatcher": [],
-			"label": "Register commands",
+			"label": "Register local commands",
 			"detail": "node registerCommands.js"
+		},
+		{
+			"type": "shell",
+			"command": "heroku run -a plectrum-v2 npm run registerCommands",
+			"label": "Register Heroku commands",
+			"problemMatcher": []
 		},
 		{
 			"type": "shell",
@@ -28,12 +34,12 @@
 			}
 		},
 		{
-			"type":"shell",
-			"command":"heroku logs -a plectrum-v2 -t",
+			"type": "shell",
+			"command": "heroku logs -a plectrum-v2 -t",
 			"label": "Heroku logs",
 			"runOptions": {
 				"runOn": "folderOpen"
-			},
+			}
 		}
 	]
 }
