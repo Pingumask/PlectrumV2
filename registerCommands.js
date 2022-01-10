@@ -13,6 +13,7 @@ fs.readdirSync('./commands').forEach(dirs => {
 
     for (const file of commandList) {
         const command = require(`./commands/${dirs}/${file}`);
+        // TODO: Gérer les alias dans les déclarations
         if (!command.beta){
             console.log(`Chargement de la commande ${command.name}`);
             commands.set(command.name.toLowerCase(), command);
@@ -20,7 +21,7 @@ fs.readdirSync('./commands').forEach(dirs => {
             console.log(`[BETA] Chargement de la commande ${command.name}`);
             betaCommands.set(command.name.toLowerCase(), command);
         }        
-    };
+    }
 });
 
 rest.put(Routes.applicationCommands(CLIENT_ID), { body: commands })

@@ -5,13 +5,13 @@ module.exports = async (client, interaction) => {
 
 async function handleCommand(client, interaction){
     const now = new Date();
-    const command = interaction.commandName;
+    const commandName = interaction.commandName;
     let args = '';    
     interaction?.options?._hoistedOptions.forEach(option => {
         args += ` ${option.value}`;
     });
-    const cmd = client.commands.get(command) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
-    console.log(`(${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}) ${interaction?.guild?.name ?? 'MP'}, #${interaction?.channel?.name ?? interaction?.channel?.thread?.name ?? 'MP'}, @${interaction?.member?.displayName ?? interaction?.user?.tag ?? 'unknown user'} : /${command} ${args}` );   
+    const cmd = client.commands.get(commandName) || client.commands.find(command => command.aliases && command.aliases.includes(commandName));
+    console.log(`(${now.toLocaleDateString('fr-FR')} ${now.toLocaleTimeString('fr-FR')}) ${interaction?.guild?.name ?? 'MP'}, #${interaction?.channel?.name ?? interaction?.channel?.thread?.name ?? 'MP'}, @${interaction?.member?.displayName ?? interaction?.user?.tag ?? 'unknown user'} : /${commandName} ${args}` );   
     let toolong = interaction?.options?._hoistedOptions.find(opt=>opt.value.length>1500);       
     if (toolong) return interaction.reply({ content: `La valeur envoyée pour ${toolong.name} est trop longue pour être interprétée`, ephemeral: true })
     if (cmd) {
@@ -19,11 +19,11 @@ async function handleCommand(client, interaction){
         try{
             await cmd.execute(client, interaction);
         } catch(e){
-            console.error(`Erreur dans l'execution de la commande ${cmd.name} : ${e}`);
+            console.error(`Erreur dans l'execution de la commande /${cmd.name} : ${e}`);
         }
         return;
     }
-    console.error(`Interaction interceptée mais non reconnue : ${command ?? interaction}`);
+    console.error(`Commande interceptée mais non reconnue : ${commandName ?? interaction}`);
 }
 
 async function handleButton(client, interaction){
@@ -36,5 +36,5 @@ async function handleButton(client, interaction){
     } catch(e){
         console.error(`Erreur dans l'execution du buttonListener ${btn.name} : ${e}`);
     }
-    console.error(`Interaction interceptée mais non reconnue : ${btn ?? interaction}`);
+    console.error(`Interaction bouton interceptée mais non reconnue : [${btn ?? interaction}]`);
 }

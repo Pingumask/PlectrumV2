@@ -1,5 +1,16 @@
 const { MessageEmbed } = require('discord.js');
 const cooldown = {};
+const TIMER = 300000;
+const defaultEmotes = {
+    1:"🇦",
+    2:"🇧",
+    3:"🇨",
+    4:"🇩",
+    5:"🇪",
+    6:"🇫",
+    7:"🇬",
+    8:"🇭",
+}
 
 module.exports = {
     name: 'sondage',
@@ -112,8 +123,7 @@ module.exports = {
     ],
     execute: async (client, interaction)=>{
         //Gestion du cooldown
-        if (interaction.guild){
-            const TIMER = 300000;
+        if (interaction.guild){            
             if (cooldown[interaction.guild.id]===undefined) cooldown[interaction.guild.id] ={}
             if(cooldown[interaction.guild.id][interaction.member.id]){
                 let end = new Date(cooldown[interaction.guild.id][interaction.member.id]);
@@ -126,73 +136,78 @@ module.exports = {
         }
 
         //Récupération des parametres
-        let question = interaction.options.getString('question');
-
-        let options = {
-            1:interaction.options.getString('réponse1'),
-            2:interaction.options.getString('réponse2'),
-            3:interaction.options.getString('réponse3'),
-            4:interaction.options.getString('réponse4'),
-            5:interaction.options.getString('réponse5'),
-            6:interaction.options.getString('réponse6'),
-            7:interaction.options.getString('réponse7'),
-            8:interaction.options.getString('réponse8'),
-        };
-
-        let defaultEmotes = {
-            1:"🇦",
-            2:"🇧",
-            3:"🇨",
-            4:"🇩",
-            5:"🇪",
-            6:"🇫",
-            7:"🇬",
-            8:"🇭",
-        }
-
-        let emotes = {
-            1:interaction.options.getString('emote1') ?? "🇦",
-            2:interaction.options.getString('emote2') ?? "🇧",
-            3:interaction.options.getString('emote3') ?? "🇨",
-            4:interaction.options.getString('emote4') ?? "🇩",
-            5:interaction.options.getString('emote5') ?? "🇪",
-            6:interaction.options.getString('emote6') ?? "🇫",
-            7:interaction.options.getString('emote7') ?? "🇬",
-            8:interaction.options.getString('emote8') ?? "🇭",
-        }
+        const {question, options, emotes} = retrieveParams(interaction.options);
 
         //Sécurisation de la longueur des parametres
         if (question.length > 300) return interaction.reply({ content: `La question est trop longue`, ephemeral: true });
-        for(num=1;num<=8;num++){
+        for(let num=1;num<=8;num++){
             if(options[num] !== null && options[num].length>200) return interaction.reply({ content: `La réponse ${num} est trop longue`, ephemeral: true });
         }
 
         //Envoi de la question
-        let messageEmbed = new MessageEmbed()
+        let initialMessage = new MessageEmbed()
             .setTitle(question)
-            .setDescription("");
-        await interaction.reply({embeds:[messageEmbed]});
+            .setDescription("...");
+        await interaction.reply({embeds:[initialMessage]});
         const poll = await interaction.fetchReply();
 
-        //Ajout des réponses et réactions
-        for(num=1;num<=8;num++){
-            if(options[num] !== null){
-                try{
-                    await poll.react(emotes[num]);
-                    messageEmbed.description += `\n${emotes[num]} ${options[num]}`;
-                }
-                catch(error){
-                    try{
-                        await poll.react(`\\${emotes[num]}`);
-                        messageEmbed.description += `\n${emotes[num]} ${options[num]}`;
-                    } catch(e){
-                        console.warn(`Emote ${emotes[num]} inutilisable`);
-                        await poll.react(defaultEmotes[num]);
-                        messageEmbed.description += `\n${defaultEmotes[num]} ${options[num]}`;
-                    }
-                }                
-            }
-        }
-        interaction.editReply({embeds:[messageEmbed]});
-    }
+        // Ajout des réactions
+        const editedMessage = await addReactions(poll, question, options, emotes);
+
+        // Ajout des réponses selon les réactions réellement appliquées
+        interaction.editReply({embeds:[editedMessage]});
+    }    
 };
+
+async function addReactions(message, question, options, emotes){
+    let editedMessage = new MessageEmbed()
+        .setTitle(question)
+        .setDescription("");
+    for(let num=1;num<=8;num++){
+        if(options[num] !== null){
+            try{
+                await message.react(emotes[num]);
+                editedMessage.description += `\n${emotes[num]} ${options[num]}`;
+            }
+            catch(error){
+                try{
+                    console.log(`${emotes[num]}`);
+                    await message.react(`\\${emotes[num]}`);
+                    editedMessage.description += `\n${emotes[num]} ${options[num]}`;
+                } catch(e){
+                    console.warn(`Emote ${emotes[num]} inutilisable`);
+                    await message.react(defaultEmotes[num]);
+                    editedMessage.description += `\n${defaultEmotes[num]} ${options[num]}`;
+                }
+            }                
+        }
+    }
+    return editedMessage;
+}
+
+function retrieveParams(params){
+    let question = params.getString('question');
+
+    let options = {
+        1:params.getString('réponse1'),
+        2:params.getString('réponse2'),
+        3:params.getString('réponse3'),
+        4:params.getString('réponse4'),
+        5:params.getString('réponse5'),
+        6:params.getString('réponse6'),
+        7:params.getString('réponse7'),
+        8:params.getString('réponse8'),
+    };
+
+    let emotes = {
+        1:params.getString('emote1') ?? "🇦",
+        2:params.getString('emote2') ?? "🇧",
+        3:params.getString('emote3') ?? "🇨",
+        4:params.getString('emote4') ?? "🇩",
+        5:params.getString('emote5') ?? "🇪",
+        6:params.getString('emote6') ?? "🇫",
+        7:params.getString('emote7') ?? "🇬",
+        8:params.getString('emote8') ?? "🇭",
+    };
+    return {question, options, emotes};
+}
