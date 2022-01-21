@@ -4,33 +4,31 @@
 		{
 			"type": "npm",
 			"script": "start",
-			"problemMatcher": [],
 			"label": "Plectrum run",
 			"detail": "npm run start"
 		},
 		{
 			"type": "npm",
 			"script": "registerCommands",
-			"problemMatcher": [],
 			"label": "Register local commands",
 			"detail": "node registerCommands.js"
 		},
 		{
 			"type": "shell",
 			"command": "heroku run -a plectrum-v2 npm run registerCommands",
-			"label": "Register Heroku commands",
-			"problemMatcher": []
+			"label": "Register Heroku commands"
 		},
 		{
 			"type": "shell",
-			"command": "git pull",
-			"label": "pull",
+			"command": "git fetch",
+			"label": "fetch",
 			"runOptions": {
 				"runOn": "folderOpen"
 			},
 			"presentation": {
 				"reveal": "silent",
-				"clear": true
+				"revealProblems": "onProblem",
+				"close": true
 			}
 		},
 		{
@@ -39,7 +37,8 @@
 			"label": "Heroku logs",
 			"runOptions": {
 				"runOn": "folderOpen"
-			}
+			},
+			"problemMatcher": []
 		}
 	]
 }
