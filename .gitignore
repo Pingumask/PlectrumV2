@@ -1,5 +1,29 @@
-.env
-.env.*
-.vscode
-node_modules
-/save/*.json
+### Node ###
+node_modules/
+package-lock.json
+
+### dot Files ###
+**/.*
+!.editorconfig
+!.gitignore
+!.prettierrc.json
+!**/.gitkeep
+!**/.*.exemple
+!**/.*.exemple.*
+!**/.*.template
+!**/.*.template.*
+
+### dot Folders ###
+**/.*/*
+!**/.*.exemple/*
+!**/.*.template/*
+
+### VisualStudioCode ###
+!.vscode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.ico
+*.code-workspace
