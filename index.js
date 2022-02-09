@@ -1,12 +1,13 @@
 const { Client, Intents, Collection } = require("discord.js");
 require("dotenv-json-complex")();
-const { initializeApp } = require("firebase/app");
-const {
-	getFirestore,
-	collection,
-	getDocs,
-} = require("firebase/firestore/lite");
+const { initializeApp, cert } = require('firebase-admin/app');
+const { getFirestore} = require('firebase-admin/firestore');
 const fs = require("fs");
+const ENV = process.env;
+
+initializeApp({
+	credential: cert(JSON.parse(ENV.FIREBASE_CONFIG))
+});  
 
 const client = new Client({
 	intents: [
@@ -16,15 +17,16 @@ const client = new Client({
 	],
 	partials: ["MESSAGE", "CHANNEL", "REACTION"],
 });
-const ENV = process.env;
+
 client.env = ENV;
 
 async function initGuildsData() {
 	let guildsData = {};
-	const guildsDataCollection = collection(client.firestoreDb, "guilddata");
-	const snap = await getDocs(guildsDataCollection);
-	snap.docs.forEach(async (entry) => {
-		guildsData[entry.id] = await entry.data();
+	const snapshot = await client.firestoreDb
+		.collection("guilddata")
+		.get();
+	snapshot.docs.forEach(async (entry) => { 
+		guildsData[entry.id] = await entry.data();   
 	});
 	return guildsData;
 }
@@ -32,9 +34,8 @@ async function initGuildsData() {
 // Chargement de mes variables globales dans le client
 client.commands = new Collection();
 client.buttonListeners = new Collection();
-client.firestoreDb = getFirestore(
-	initializeApp(JSON.parse(ENV.FIREBASE_CONFIG))
-);
+
+client.firestoreDb = getFirestore();
 initGuildsData().then((data) => {
 	client.guildsData = data;
 });

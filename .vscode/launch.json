@@ -5,11 +5,14 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
-			"type": "pwa-node",
+			"type": "node",
 			"request": "launch",
-			"name": "Launch Program",
+			"runtimeExecutable": "nodemon",
+			"name": "Debug Bot",
 			"skipFiles": ["<node_internals>/**"],
-			"program": "${workspaceFolder}\\index.js"
+			"program": "index.js",
+			"console": "integratedTerminal"
+
 		}
 	]
 }

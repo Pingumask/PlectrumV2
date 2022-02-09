@@ -77,15 +77,10 @@ async function handleButton(client, interaction) {
 				"unknown user"
 			} : [${btn.name}]`
 		);
-		await btn.execute(client, interaction);
+		return btn.execute(client, interaction);
 	} catch (e) {
-		console.error(
+		return console.error(
 			`Erreur dans l'execution du buttonListener ${btn.name} : ${e}`
 		);
 	}
-	console.error(
-		`Interaction bouton interceptée mais non reconnue : [${
-			btn ?? interaction
-		}]`
-	);
 }

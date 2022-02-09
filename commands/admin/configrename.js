@@ -1,5 +1,4 @@
 const { Permissions } = require("discord.js");
-const { doc, setDoc } = require("firebase/firestore/lite");
 
 module.exports = {
 	name: "configrename",
@@ -44,11 +43,7 @@ module.exports = {
 		};
 
 		//Enregistrer la modif sur firebase
-		const docRef = doc(
-			client.firestoreDb,
-			`guilddata/${interaction.guild.id}`
-		);
-		await setDoc(docRef, client.guildsData[interaction.guild.id]);
+		client.firestoreDb.collection("guilddata").doc(interaction.guild.id).set(client.guildsData[interaction.guild.id]);
 
 		interaction.reply({
 			content: `Channel de reception des demandes de rename réglé à : ${channel}`,
