@@ -2,10 +2,10 @@ const { MessageEmbed } = require("discord.js");
 const cooldown = {};
 const images = [
 	"https://c.tenor.com/o4_qJ_1tzz8AAAAC/good-night.gif",
-	"https://c.tenor.com/xrjwFDekb7EAAAAi/peach-cat-pet.gif",
 	"https://c.tenor.com/5VbS6pyBYvsAAAAC/gif-fofinho-heart.gif",
 	"https://c.tenor.com/2kmDRTqIIDAAAAAC/kitty-so-cute-head-pat.gif",
 	"https://c.tenor.com/qRW7PesyukIAAAAC/peach-cat-goma.gif",
+	"https://c.tenor.com/6fa6sool-Y4AAAAi/love-pat.gif",
 ];
 
 module.exports = {
