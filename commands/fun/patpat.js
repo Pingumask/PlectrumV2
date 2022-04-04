@@ -1,22 +1,22 @@
 const { MessageEmbed } = require("discord.js");
 const cooldown = {};
 const images = [
-	"https://c.tenor.com/DxMIq9-tS5YAAAAC/milk-and-mocha-bear-couple.gif",
-	"https://c.tenor.com/vVBFWMH7J9oAAAAC/hug-peachcat.gif",
-	"https://c.tenor.com/wqCAHtQuTnkAAAAC/milk-and-mocha-hug.gif",
-	"https://c.tenor.com/FduR7Yr84OQAAAAC/milk-and-mocha-kiss.gif",
-	"https://c.tenor.com/jX1-mxefJ54AAAAC/cat-hug.gif",
+	"https://c.tenor.com/o4_qJ_1tzz8AAAAC/good-night.gif",
+	"https://c.tenor.com/xrjwFDekb7EAAAAi/peach-cat-pet.gif",
+	"https://c.tenor.com/5VbS6pyBYvsAAAAC/gif-fofinho-heart.gif",
+	"https://c.tenor.com/2kmDRTqIIDAAAAAC/kitty-so-cute-head-pat.gif",
+	"https://c.tenor.com/qRW7PesyukIAAAAC/peach-cat-goma.gif",
 ];
 
 module.exports = {
-	name: "calin",
+	name: "patpat",
 	category: "fun",
-	description: "Fait un câlin aux gens",
-	utilisation: "{prefix}calin [destinataire]",
+	description: "Console quelqu'un",
+	utilisation: "{prefix}patpat [destinataire]",
 	options: [
 		{
 			name: "destinataire",
-			description: "A qui faire le câlin",
+			description: "la personne à consoler",
 			type: 3, //type 3 = STRING
 			required: true,
 		},
@@ -24,7 +24,7 @@ module.exports = {
 	execute: async (client, interaction) => {
 		if (interaction.guild) {
 			const TIMER = 300000;
-			if (!cooldown[interaction.guild.id])
+			if (! cooldown[interaction.guild.id])
 				cooldown[interaction.guild.id] = {};
 			if (cooldown[interaction.guild.id][interaction.member.id]) {
 				let end = new Date(
@@ -33,7 +33,7 @@ module.exports = {
 				return interaction.reply({
 					content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString(
 						"fr-FR"
-					)} pour ton prochain câlin`,
+					)} pour ton prochain patpat`,
 					ephemeral: true,
 				});
 			}
@@ -53,12 +53,12 @@ module.exports = {
 				ephemeral: true,
 			});
 
-		const resultat = `${interaction.user} fait un câlin à ${target} <3.`;
+		const resultat = `${interaction.user} fait un patpat à ${target} <3.`;
 		let messageEmbed = new MessageEmbed()
 			.setDescription(resultat)
 			.setImage(picked);
 
-		//On envoit d'abbord le câlin sous forme d'un message normal pour déclencher les pings
+		//On envoit d'abbord le patpat sous forme d'un message normal pour déclencher les pings
 		await interaction.reply({ content: resultat });
 
 		//Puis on le remplace par un embed avec l'image

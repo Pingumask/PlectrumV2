@@ -8,19 +8,14 @@ package-lock.json
 !.gitignore
 !.prettierrc.json
 !**/.gitkeep
-!**/.*.exemple
-!**/.*.exemple.*
 !**/.*.template
 !**/.*.template.*
 
 ### dot Folders ###
 **/.*/*
-!**/.*.exemple/*
 !**/.*.template/*
 
 ### VisualStudioCode ###
-!.vscode
-.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

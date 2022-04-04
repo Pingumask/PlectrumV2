@@ -3,15 +3,10 @@
 	"tasks": [
 		{
 			"type": "npm",
-			"script": "start",
-			"label": "Plectrum run",
-			"detail": "npm run start"
-		},
-		{
-			"type": "npm",
 			"script": "registerCommands",
 			"label": "Register local commands",
-			"detail": "node registerCommands.js"
+			"detail": "node registerCommands.js",
+			"problemMatcher": []
 		},
 		{
 			"type": "shell",
