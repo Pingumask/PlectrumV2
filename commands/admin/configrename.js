@@ -37,10 +37,10 @@ module.exports = {
 			});
 		channel = channel.substring(2, channel.length - 1);
 
-		client.guildsData[interaction.guild.id] = {
-			guild: interaction.guild.name,
-			renameChannel: channel,
-		};
+		if (!client.guildsData[interaction.guild.id] ){
+			client.guildsData[interaction.guild.id] = {};
+		}
+		client.guildsData[interaction.guild.id].renameChannel = channel;
 
 		//Enregistrer la modif sur firebase
 		client.firestoreDb.collection("guilddata").doc(interaction.guild.id).set(client.guildsData[interaction.guild.id]);
