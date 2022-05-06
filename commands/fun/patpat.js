@@ -31,9 +31,9 @@ module.exports = {
 					cooldown[interaction.guild.id][interaction.member.id]
 				);
 				return interaction.reply({
-					content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString(
-						"fr-FR"
-					)} pour ton prochain patpat`,
+					content: `Tu fais ça trop souvent, attends jusqu'à ${
+						end.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+					} pour ton prochain patpat`,
 					ephemeral: true,
 				});
 			}
@@ -51,7 +51,7 @@ module.exports = {
 			return interaction.reply({
 				content: `Ca fait beaucoup là non ?`,
 				ephemeral: true,
-			});
+			}); 
 
 		const resultat = `${interaction.user} fait un patpat à ${target} <3.`;
 		let messageEmbed = new MessageEmbed()

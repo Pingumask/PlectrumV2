@@ -131,9 +131,9 @@ module.exports = {
 					cooldown[interaction.guild.id][interaction.member.id]
 				);
 				return interaction.reply({
-					content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString(
-						"fr-FR"
-					)} avant de lancer un nouveau sondage`,
+					content: `Tu fais ça trop souvent, attends jusqu'à ${
+						end.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+					} avant de lancer un nouveau sondage`,
 					ephemeral: true,
 				});
 			}

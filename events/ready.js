@@ -11,9 +11,11 @@ module.exports = async (client) => {
 	};	
 
 	console.log(
-		`(${now.toLocaleDateString("fr-FR")} ${now.toLocaleTimeString(
-			"fr-FR"
-		)}) Connecté en tant que ${client.user.tag} sur ${
+		`(${
+			now.toLocaleDateString("fr-FR",{ timeZone: 'Europe/Paris' })
+		} ${
+			now.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+		}) Connecté en tant que ${client.user.tag} sur ${
 			client.guilds.cache.size
 		} serveurs`
 	);

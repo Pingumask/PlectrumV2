@@ -31,9 +31,9 @@ module.exports = {
 					cooldown[interaction.guild.id][interaction.member.id]
 				);
 				return interaction.reply({
-					content: `Tu fais ça trop souvent, attends jusqu'à ${end.toLocaleTimeString(
-						"fr-FR"
-					)} pour ton prochain câlin`,
+					content: `Tu fais ça trop souvent, attends jusqu'à ${
+						end.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+					} pour ton prochain câlin`,
 					ephemeral: true,
 				});
 			}

@@ -27,9 +27,11 @@ module.exports = {
 			}
 		});
 		console.log(
-			`(${now.toLocaleDateString("fr-FR")} ${now.toLocaleTimeString(
-				"fr-FR"
-			)}) [Rename] ${oldNick} 🚫 ${newNick} ✅ refusé par ${
+			`(${
+				now.toLocaleDateString("fr-FR",{ timeZone: 'Europe/Paris' })
+			} ${
+				now.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+			}) [Rename] ${oldNick} 🚫 ${newNick} ✅ refusé par ${
 				interaction.member.displayName
 			}`
 		);
@@ -43,9 +45,11 @@ module.exports = {
 		interaction.message.embeds[0].setFooter({
 			text: `🚫 Rejeté par ${
 				interaction.member.displayName
-			} le ${now.toLocaleDateString("fr-FR")} à ${now.toLocaleTimeString(
-				"fr-FR"
-			)}`,
+			} le ${
+				now.toLocaleDateString("fr-FR",{ timeZone: 'Europe/Paris' })
+			} à ${
+				now.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+			}`,
 		});
 		interaction.message.edit({
 			embeds: interaction.message.embeds,

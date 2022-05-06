@@ -17,9 +17,11 @@ async function handleCommand(client, interaction) {
 				command.aliases && command.aliases.includes(commandName)
 		);
 	console.log(
-		`(${now.toLocaleDateString("fr-FR")} ${now.toLocaleTimeString(
-			"fr-FR"
-		)}) ${interaction?.guild?.name ?? "MP"}, #${
+		`(${
+			now.toLocaleDateString("fr-FR",{ timeZone: 'Europe/Paris' })
+		} ${
+			now.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+		}) ${interaction?.guild?.name ?? "MP"}, #${
 			interaction?.channel?.name ??
 			interaction?.channel?.thread?.name ??
 			"MP"
@@ -65,9 +67,11 @@ async function handleButton(client, interaction) {
 		);
 	try {
 		console.log(
-			`(${now.toLocaleDateString("fr-FR")} ${now.toLocaleTimeString(
-				"fr-FR"
-			)}) ${interaction?.guild?.name ?? "MP"}, #${
+			`(${
+				now.toLocaleDateString("fr-FR",{ timeZone: 'Europe/Paris' })
+			} ${
+				now.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
+			}) ${interaction?.guild?.name ?? "MP"}, #${
 				interaction?.channel?.name ??
 				interaction?.channel?.thread?.name ??
 				"MP"
