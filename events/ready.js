@@ -8,7 +8,7 @@ module.exports = async (client) => {
 		client.guildsData[guildId].guild = guild.name;
 		client.guildsData[guildId].owner = {id:owner.user.id,tag:owner.user.tag};
 		client.firestoreDb.collection("guilddata").doc(guildId).set(client.guildsData[guildId]);
-	};	
+	}
 
 	console.log(
 		`(${

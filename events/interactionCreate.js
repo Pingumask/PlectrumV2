@@ -31,7 +31,7 @@ async function handleCommand(client, interaction) {
 			"unknown user"
 		} : /${commandName} ${args}`
 	);
-	let toolong = interaction?.options?._hoistedOptions.find(
+	const toolong = interaction?.options?._hoistedOptions.find(
 		(opt) => opt.value.length > 1500
 	);
 	if (toolong)
