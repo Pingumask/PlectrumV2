@@ -18,7 +18,6 @@ module.exports = {
 				case "Demandeur":
 					let requesterID = value.substring(2, value.length - 1);
 					requester = await interaction.guild.members.fetch(requesterID);
-					console.log('requester:', requester);
 					break;
 				case "Channel":
 					let channelID = value.substring(2, value.length - 1);
@@ -34,7 +33,7 @@ module.exports = {
 				interaction.member.displayName
 			}`
 		);
-		if (requester.manageable) {
+		if (requester?.manageable) {
 			requestChannel.send({
 				embeds: [
 					{

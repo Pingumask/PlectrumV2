@@ -7,7 +7,7 @@ module.exports = {
 		let newNick;
 		let requester;
 		let requestChannel;
-		fields.forEach(({ name, value }) => {
+		fields.forEach(async ({ name, value }) => {
 			switch (name) {
 				case "Ancien Pseudo":
 					oldNick = value;
@@ -17,13 +17,11 @@ module.exports = {
 					break;
 				case "Demandeur":
 					let requesterID = value.substring(2, value.length - 1);
-					requester =
-						interaction.guild.members.cache.get(requesterID);
+					requester = await interaction.guild.members.fetch(requesterID);
 					break;
 				case "Channel":
 					let channelID = value.substring(2, value.length - 1);
-					requestChannel =
-						interaction.guild.channels.cache.get(channelID);
+					requestChannel = await interaction.guild.channels.fetch(channelID);
 			}
 		});
 		console.log(

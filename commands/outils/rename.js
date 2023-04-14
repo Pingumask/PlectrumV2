@@ -46,7 +46,7 @@ module.exports = {
 		const now = new Date();
 		const newNick =
 			interaction.options.getString("pseudo") ?? "[Réinitialisation]";
-		const renameChannel = client.channels.cache.get(
+		const renameChannel = await client.channels.fetch(
 			client.guildsData[interaction.guild.id].renameChannel
 		);
 
