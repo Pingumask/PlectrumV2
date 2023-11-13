@@ -24,6 +24,8 @@ module.exports = {
 			"Oui, mais attention, ça pourrait changer.",
 			"C'est une certitude absolue !",
 			"Oui, mais ça sera pas facile !",
+			"C'est une certitude",
+			"A n'en point douter",
 
 			"Ca se pourrait",
 			"Peut être",
@@ -37,6 +39,8 @@ module.exports = {
 			"Je refuse de répondre à ça, mais j'en pense pas moins !",
 			"Peu me chaut.",
 			"Je n'en ai cure.",
+			"J'ai pas envie de répondre à ça",
+			"Je vois pas pourquoi je prendrais la peine de répondre.",
 
 			"Non ||, mais t'as vu c'que t'écoutes ?||",
 			"Non, mais c'est pas faute d'essayer.",
@@ -49,6 +53,8 @@ module.exports = {
 			"Pas du tout !",
 			"Et la marmotte, elle met le chocolat dans le papier alu.",
 			"Ha ha ha... Non !",
+			"Négatif.",
+			"Mais bien sûr que non enfin !",
 		];
 		const reponse = phrases[Math.floor(Math.random() * phrases.length)];
 		const question = interaction.options.getString("question");
