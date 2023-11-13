@@ -1,6 +1,6 @@
 {
 	"name": "plectrum",
-	"version": "2.1.0",
+	"version": "2.2.0",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/Pingumask/PlectrumV2.git"
@@ -24,7 +24,7 @@
 		"word-definition": "^2.1.6"
 	},
 	"engines": {
-		"npm": ">=8.1.0",
-		"node": ">=16.13.0"
+		"npm": ">=9.8.1",
+		"node": ">=18.18.2"
 	}
 }
