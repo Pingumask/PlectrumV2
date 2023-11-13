@@ -96,11 +96,12 @@ module.exports = {
 			.addField("Nouveau Pseudo", newNick, true)
 			.addField("Channel", `<#${interaction.channel.id}>`)
 			.setFooter({
-				text: `🕐 En attente depuis le ${
-					now.toLocaleDateString("fr-FR",{ timeZone: 'Europe/Paris' })
-				} à ${
-					now.toLocaleTimeString("fr-FR",{ timeZone: 'Europe/Paris' })
-				}`,
+				text: `🕐 En attente depuis le ${now.toLocaleDateString(
+					"fr-FR",
+					{ timeZone: "Europe/Paris" }
+				)} à ${now.toLocaleTimeString("fr-FR", {
+					timeZone: "Europe/Paris",
+				})}`,
 			});
 		let embeds = [modMessage];
 

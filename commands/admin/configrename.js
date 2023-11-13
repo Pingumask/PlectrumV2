@@ -37,13 +37,16 @@ module.exports = {
 			});
 		channel = channel.substring(2, channel.length - 1);
 
-		if (!client.guildsData[interaction.guild.id] ){
+		if (!client.guildsData[interaction.guild.id]) {
 			client.guildsData[interaction.guild.id] = {};
 		}
 		client.guildsData[interaction.guild.id].renameChannel = channel;
 
 		//Enregistrer la modif sur firebase
-		client.firestoreDb.collection("guilddata").doc(interaction.guild.id).set(client.guildsData[interaction.guild.id]);
+		client.firestoreDb
+			.collection("guilddata")
+			.doc(interaction.guild.id)
+			.set(client.guildsData[interaction.guild.id]);
 
 		interaction.reply({
 			content: `Channel de reception des demandes de rename réglé à : ${channel}`,
